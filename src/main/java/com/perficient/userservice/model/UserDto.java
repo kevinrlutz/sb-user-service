@@ -1,4 +1,4 @@
-package com.perficient.model;
+package com.perficient.userservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +18,5 @@ public class UserDto {
     private Integer age;
     private String email;
     private String phoneNumber;
-    private UUID id;
+    private UUID userId;
 }
