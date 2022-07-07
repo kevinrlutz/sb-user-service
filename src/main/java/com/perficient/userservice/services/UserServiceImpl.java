@@ -1,6 +1,11 @@
 package com.perficient.userservice.services;
 
+import com.perficient.userservice.domain.User;
+import com.perficient.userservice.web.controller.NotFoundException;
+import com.perficient.userservice.web.mappers.UserMapper;
 import com.perficient.userservice.model.UserDto;
+import com.perficient.userservice.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -8,39 +13,42 @@ import java.util.UUID;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     public UserDto getUserById(UUID userId) {
-
-        // TODO: Create a method in the UserRepository to get a user by id
-        return UserDto.builder().userId(UUID.randomUUID())
-                .age(22)
-                .email("kevinlutz429@gmail.com")
-                .firstName("Joe")
-                .lastName("Test")
-                .gender("Male")
-                .phoneNumber("555-555-5555")
-                .build();
+        return userMapper.toUserDto(userRepository.findById(userId).orElseThrow(NotFoundException::new));
     }
 
     @Override
-    public UserDto saveUser(UserDto userDto) {
-        // TODO: Create a method to save new user to UserRepository
-        return UserDto.builder().userId(UUID.randomUUID()).build();
+    public UserDto saveNewUser(UserDto userDto) {
+        return userMapper.toUserDto(userRepository.save(userMapper.toUser(userDto)));
     }
 
     @Override
-    public void updateUser(UUID userId, UserDto userDto) {
-        // TODO: Create a method to update a user in UserRepository
-        log.debug("Updating user with id: {}", userId);
+    public UserDto updateUser(UUID userId, UserDto userDto) {
+        User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
+
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+
+        user.setAge(userDto.getAge());
+        user.setGender(userDto.getGender());
+
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setEmail(userDto.getEmail());
+
+        return userMapper.toUserDto(userRepository.save(user));
     }
 
     @Override
     public void deleteUser(UUID userId) {
-        // TODO: Create a method to delete a user in UserRepository
-        log.debug("Deleting user with id: {}", userId);
+        userRepository.delete(userRepository.findById(userId).orElseThrow(NotFoundException::new));
+        System.out.println("Deleted user with id: " + userId);
     }
 
 

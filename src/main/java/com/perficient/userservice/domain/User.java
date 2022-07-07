@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -26,6 +27,10 @@ public class User {
 
     private String firstName;
     private String lastName;
+
+    private Integer age;
+    private String gender;
+
     private String email;
     private String phoneNumber;
 }

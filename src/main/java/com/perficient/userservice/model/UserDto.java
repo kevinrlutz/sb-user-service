@@ -12,11 +12,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class UserDto {
+    private UUID userId;
+
     private String firstName;
     private String lastName;
+
     private String gender;
     private Integer age;
+
     private String email;
     private String phoneNumber;
-    private UUID userId;
 }
