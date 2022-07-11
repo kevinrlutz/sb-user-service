@@ -1,12 +1,13 @@
 package com.perficient.userservice.services;
 
 import com.perficient.userservice.model.UserDto;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 public interface UserService {
-    UserDto getUserById(UUID userId);
+    UserDto getUserById(String userId);
     UserDto saveNewUser(UserDto userDto);
-    UserDto updateUser(UUID userId, UserDto userDto);
-    void deleteUser(UUID userId);
+    UserDto updateUser(String userId, UserDto userDto);
+    void deleteUser(String userId);
 }

@@ -2,13 +2,19 @@ package com.perficient.userservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perficient.userservice.model.UserDto;
+import com.perficient.userservice.repositories.UserRepository;
 import com.perficient.userservice.services.UserService;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.UUID;
@@ -17,16 +23,19 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(UserController.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@AutoConfigureMockMvc
 class UserControllerTest {
+
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Autowired
     ObjectMapper objectMapper;
 
     @MockBean
     UserService userService;
+
 
     @Test
     void getUser() throws Exception {
@@ -66,7 +75,7 @@ class UserControllerTest {
 
     UserDto getValidUserDto() {
         return UserDto.builder()
-                .userId(UUID.randomUUID())
+                .userId(UUID.randomUUID().toString())
                 .firstName("Joe")
                 .lastName("Bloggs")
                 .gender("Male")

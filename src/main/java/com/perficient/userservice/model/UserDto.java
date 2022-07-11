@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.UUID;
 
@@ -12,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class UserDto {
-    private UUID userId;
+    private String userId;
 
     private String firstName;
     private String lastName;

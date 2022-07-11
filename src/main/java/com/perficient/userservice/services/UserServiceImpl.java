@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDto getUserById(UUID userId) {
+    public UserDto getUserById(String userId) {
         return userMapper.toUserDto(userRepository.findById(userId).orElseThrow(NotFoundException::new));
     }
 
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(UUID userId, UserDto userDto) {
+    public UserDto updateUser(String userId, UserDto userDto) {
         User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
 
         user.setFirstName(userDto.getFirstName());
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(UUID userId) {
+    public void deleteUser(String userId) {
         userRepository.delete(userRepository.findById(userId).orElseThrow(NotFoundException::new));
         System.out.println("Deleted user with id: " + userId);
     }
