@@ -13,11 +13,21 @@ jobs:
     # A list of available CircleCI Docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/openjdk
     docker:
       - image: cimg/openjdk:11.0
-    # Add steps to the job
+      - image: circleci/mongo:4.2.0
+        environment:
+          - MONGODB_USERNAME: "root"
+          - MONGODB_PASSWORD: "hC6i3OgYBUb52kxT"
+      # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       # Checkout the code as the first step.
       - checkout
+      - setup_remote_docker
+      # Set up mongoDB
+      - run:
+          name: MongoDB Install
+          command: |
+            sudo apt-get install -y mongodb
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Build
