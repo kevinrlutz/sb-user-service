@@ -5,20 +5,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document("users")
+@Document
 public class User {
     @Id
-    private String userId;
-
-    @Version
-    private Long version;
+    private String id;
 
     private String firstName;
     private String lastName;

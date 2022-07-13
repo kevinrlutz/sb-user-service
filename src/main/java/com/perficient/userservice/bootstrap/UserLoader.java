@@ -1,6 +1,7 @@
-package com.perficient.userservice.repositories;
+package com.perficient.userservice.bootstrap;
 
 import com.perficient.userservice.domain.User;
+import com.perficient.userservice.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

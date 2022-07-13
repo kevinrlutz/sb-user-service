@@ -7,9 +7,8 @@ import com.perficient.userservice.model.UserDto;
 import com.perficient.userservice.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -17,11 +16,13 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+
+    @Autowired
     private final UserMapper userMapper;
 
     @Override
     public UserDto getUserById(String userId) {
-        return userMapper.toUserDto(userRepository.findById(userId).orElseThrow(NotFoundException::new));
+        return userMapper.toUserDto(userRepository.findById(userId.toString()).orElseThrow(NotFoundException::new));
     }
 
     @Override
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(String userId, UserDto userDto) {
-        User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
+        User user = userRepository.findById(userId.toString()).orElseThrow(NotFoundException::new);
 
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(String userId) {
-        userRepository.delete(userRepository.findById(userId).orElseThrow(NotFoundException::new));
+        userRepository.delete(userRepository.findById(userId.toString()).orElseThrow(NotFoundException::new));
         System.out.println("Deleted user with id: " + userId);
     }
 
