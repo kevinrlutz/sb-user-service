@@ -1,4 +1,4 @@
-package com.perficient.userservice.model;
+package com.perficient.userservice.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

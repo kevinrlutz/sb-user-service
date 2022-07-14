@@ -3,7 +3,7 @@ package com.perficient.userservice.services;
 import com.perficient.userservice.domain.User;
 import com.perficient.userservice.web.controller.NotFoundException;
 import com.perficient.userservice.web.mappers.UserMapper;
-import com.perficient.userservice.model.UserDto;
+import com.perficient.userservice.web.model.UserDto;
 import com.perficient.userservice.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

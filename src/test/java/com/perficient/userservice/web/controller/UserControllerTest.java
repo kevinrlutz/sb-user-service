@@ -1,7 +1,7 @@
 package com.perficient.userservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perficient.userservice.model.UserDto;
+import com.perficient.userservice.web.model.UserDto;
 import com.perficient.userservice.services.UserService;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;

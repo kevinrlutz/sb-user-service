@@ -1,6 +1,6 @@
 package com.perficient.userservice.web.controller;
 
-import com.perficient.userservice.model.UserDto;
+import com.perficient.userservice.web.model.UserDto;
 import com.perficient.userservice.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.perficient.userservice.services;
 
-import com.perficient.userservice.model.UserDto;
+import com.perficient.userservice.web.model.UserDto;
 import com.perficient.userservice.repositories.UserRepository;
 import com.perficient.userservice.web.mappers.UserMapper;
 import org.bson.types.ObjectId;
@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;

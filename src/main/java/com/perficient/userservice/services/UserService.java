@@ -1,6 +1,6 @@
 package com.perficient.userservice.services;
 
-import com.perficient.userservice.model.UserDto;
+import com.perficient.userservice.web.model.UserDto;
 
 public interface UserService {
     UserDto getUserById(String userId);
