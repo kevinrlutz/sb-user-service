@@ -1,6 +1,8 @@
 package com.perficient.userservice.services;
 
-import com.perficient.userservice.model.UserDto;
+import com.perficient.userservice.web.model.ApptDto;
+import com.perficient.userservice.web.model.ApptTypeEnum;
+import com.perficient.userservice.web.model.UserDto;
 import com.perficient.userservice.repositories.UserRepository;
 import com.perficient.userservice.web.mappers.UserMapper;
 import org.bson.types.ObjectId;
@@ -12,7 +14,8 @@ import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataM
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.UUID;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,15 +91,49 @@ class UserServiceTest {
         assertThat(userRepository.findById(testId)).isEmpty();
     }
 
+    @Test
+    void addAppointment() {
+        UserDto savedUser = userService.saveNewUser(getValidUserDto());
+        String testId = savedUser.getId();
+        userService.addAppointment(testId, getValidApptDto());
+
+        System.out.println(userService.getUserAppointments(testId));
+
+        assertThat(userService.getUserAppointments(testId).isEmpty()).isFalse();
+    }
+
+    @Test
+    void addFiveUsersWithDummyAppts() {
+        for (int i = 0; i < 5; i++) {
+            UserDto savedUser = userService.saveNewUser(getValidUserDto());
+            String testId = savedUser.getId();
+            userService.addAppointment(testId, getValidApptDto());
+        }
+
+        assertTrue(userRepository.count() >= 5);
+    }
+
     UserDto getValidUserDto() {
         return UserDto.builder()
                 .id(new ObjectId().toString())
-                .firstName("Joey")
-                .lastName("Test2")
-                .email("test2@test.com")
-                .phoneNumber("1234567890")
-                .gender("Male")
-                .age(17)
+                .firstName("New")
+                .lastName("User")
+                .email("test@dummytest.com")
+                .phoneNumber("555-555-5555")
+                .gender("Female")
+                .age(75)
+                .appointmentList(new ArrayList<>())
+                .build();
+    }
+
+    ApptDto getValidApptDto() {
+        return ApptDto.builder()
+                .id(new ObjectId().toString())
+                .apptName("Test Appt")
+                .apptType(ApptTypeEnum.INITIAL)
+                .description("Test Appt Description")
+                .startTime(LocalTime.now())
+                .endTime(LocalTime.now())
                 .build();
     }
 }

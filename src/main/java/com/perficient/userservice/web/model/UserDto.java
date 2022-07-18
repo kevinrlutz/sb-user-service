@@ -1,4 +1,4 @@
-package com.perficient.userservice.model;
+package com.perficient.userservice.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,4 +25,6 @@ public class UserDto implements Serializable {
 
     private String email;
     private String phoneNumber;
+
+    private List<ApptDto> appointmentList;
 }

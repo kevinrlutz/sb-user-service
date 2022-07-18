@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Component
@@ -29,6 +30,7 @@ public class UserLoader implements CommandLineRunner {
                 .gender("Male")
                 .email("johndoe@test.com")
                 .phoneNumber("1234567890")
+                .appointmentList(new ArrayList<>())
                 .build();
 
         userRepository.save(user);

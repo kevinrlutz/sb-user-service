@@ -1,9 +1,12 @@
 package com.perficient.userservice.domain;
 
+import com.perficient.userservice.web.model.ApptDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,4 +26,6 @@ public class User {
 
     private String email;
     private String phoneNumber;
+
+    private List<ApptDto> appointmentList;
 }
