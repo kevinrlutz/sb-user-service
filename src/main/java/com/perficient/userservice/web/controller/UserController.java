@@ -1,12 +1,16 @@
 package com.perficient.userservice.web.controller;
 
+import com.perficient.userservice.web.model.ApptDto;
 import com.perficient.userservice.web.model.UserDto;
 import com.perficient.userservice.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/api/v1/users")
 @RestController
@@ -15,13 +19,26 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("userId") String userId) {
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}/appointments")
+    public ResponseEntity<List<ApptDto>> getUserAppointments(@PathVariable("userId") String userId) {
+        return new ResponseEntity<>(userService.getUserAppointments(userId), HttpStatus.OK);
+    }
+
     @PostMapping // Create a new user
     public ResponseEntity<UserDto> createUser(@RequestBody @Validated UserDto userDto) {
+        if (userService.getUserById(userDto.getId()) != null) {
+            userDto.setId(new ObjectId().toString());
+        }
         return new ResponseEntity<>(userService.saveNewUser(userDto), HttpStatus.CREATED);
     }
 
