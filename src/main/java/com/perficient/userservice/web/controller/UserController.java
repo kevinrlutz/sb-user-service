@@ -34,11 +34,8 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserAppointments(userId), HttpStatus.OK);
     }
 
-    @PostMapping // Create a new user
+    @PostMapping("/") // Create a new user
     public ResponseEntity<UserDto> createUser(@RequestBody @Validated UserDto userDto) {
-        if (userService.getUserById(userDto.getId()) != null) {
-            userDto.setId(new ObjectId().toString());
-        }
         return new ResponseEntity<>(userService.saveNewUser(userDto), HttpStatus.CREATED);
     }
 
