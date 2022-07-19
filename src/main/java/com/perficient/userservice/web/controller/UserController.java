@@ -29,6 +29,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/search/{lastName}")
+    public List<UserDto> getAllUsersByLastName(@PathVariable("lastName") String lastName) {
+        return userService.getAllUsersByLastName(lastName);
+    }
+
     @GetMapping("/{userId}/appointments")
     public ResponseEntity<List<ApptDto>> getUserAppointments(@PathVariable("userId") String userId) {
         return new ResponseEntity<>(userService.getUserAppointments(userId), HttpStatus.OK);
