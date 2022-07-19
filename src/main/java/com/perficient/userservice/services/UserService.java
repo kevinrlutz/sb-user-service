@@ -13,6 +13,8 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
 
+    List<UserDto> getAllUsersByLastName(String lastName);
+
     List<ApptDto> getUserAppointments(String userId);
 
     ApptDto addAppointment(String userId, ApptDto apptDto);

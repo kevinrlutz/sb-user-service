@@ -72,9 +72,10 @@ class UserServiceTest {
                 .firstName("Updated")
                 .lastName("User")
                 .email("updatedemail@email.com")
-                .phoneNumber("0987654321")
+                .phoneNumber("098-765-4321")
                 .gender("Female")
                 .age(30)
+                .appointmentList(savedUser.getAppointmentList())
                 .build();
 
         UserDto updatedUser = userService.updateUser(savedUser.getId(), updateDto);
