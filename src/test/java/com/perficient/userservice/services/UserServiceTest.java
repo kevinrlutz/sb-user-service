@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataM
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -132,8 +133,8 @@ class UserServiceTest {
                 .apptName("Test Appt")
                 .apptType(ApptTypeEnum.INITIAL)
                 .description("Test Appt Description")
-                .startTime(LocalTime.now())
-                .endTime(LocalTime.now())
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now())
                 .build();
     }
 }
