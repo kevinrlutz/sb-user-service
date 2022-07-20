@@ -35,13 +35,30 @@ class UserControllerTest {
 
 
     @Test
-    void getUser() throws Exception {
+    void getAllUsers() throws Exception {
+        given(userService.getAllUsers()).willReturn(new ArrayList<>());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getUserById() throws Exception {
 
         given(userService.getUserById(any())).willReturn(getValidUserDto());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users/" + new ObjectId()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void getAllUsersByLastName() throws Exception {
+        given(userService.getAllUsersByLastName(any())).willReturn(new ArrayList<>());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
 
     @Test
     void createUser() throws Exception {
@@ -64,9 +81,23 @@ class UserControllerTest {
         UserDto userDto = UserDto.builder().build();
         String userDtoJson = objectMapper.writeValueAsString(userDto);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/users/" + UUID.randomUUID().toString())
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/users/" + new ObjectId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userDtoJson))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void getUserAppointments() throws Exception {
+        given(userService.getUserAppointments(any())).willReturn(new ArrayList<>());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users/" + new ObjectId() + "/appointments")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void deleteUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/users/" + new ObjectId()))
                 .andExpect(status().isNoContent());
     }
 

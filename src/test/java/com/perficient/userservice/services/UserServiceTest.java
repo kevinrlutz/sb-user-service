@@ -8,19 +8,27 @@ import com.perficient.userservice.web.mappers.UserMapper;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -47,8 +55,25 @@ class UserServiceTest {
 
         UserDto returnedUserDto = userService.getUserById(testId);
         System.out.println("Returned UserDto: " + returnedUserDto);
-
         assertNotNull(returnedUserDto);
+    }
+
+    @Test
+    void getAllUsers() {
+        userService.saveNewUser(getValidUserDto());
+        List<UserDto> returnedUserDtoList = userService.getAllUsers();
+
+        System.out.println("Returned UserDto List: " + returnedUserDtoList);
+
+        assertNotNull(returnedUserDtoList);
+    }
+
+    @Test
+    void getAllUsersByLastName() {
+        userService.saveNewUser(getValidUserDto());
+        List<UserDto> returnedUserDtoList = userService.getAllUsersByLastName("User");
+
+        assertNotNull(returnedUserDtoList);
     }
 
     @Test
@@ -102,17 +127,6 @@ class UserServiceTest {
         System.out.println(userService.getUserAppointments(testId));
 
         assertThat(userService.getUserAppointments(testId).isEmpty()).isFalse();
-    }
-
-    @Test
-    void addFiveUsersWithDummyAppts() {
-        for (int i = 0; i < 5; i++) {
-            UserDto savedUser = userService.saveNewUser(getValidUserDto());
-            String testId = savedUser.getId();
-            userService.addAppointment(testId, getValidApptDto());
-        }
-
-        assertTrue(userRepository.count() >= 5);
     }
 
     UserDto getValidUserDto() {
