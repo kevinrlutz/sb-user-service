@@ -38,4 +38,6 @@ public class ApptDto {
     // Choose appropriate data type (map?)
     private String metadata;
 
+    private String userId;
+
 }
