@@ -69,6 +69,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> getAllUsersByEmail(String email) {
+        List<UserDto> users = userMapper.toUserDtoList(userRepository.findByEmailIgnoreCase(email));
+        return users;
+    }
+
+    @Override
     public List<ApptDto> getUserAppointments(String userId) {
         UserDto user = userMapper.toUserDto(userRepository.findById(userId).orElseThrow(NotFoundException::new));
         return user.getAppointmentList();

@@ -31,10 +31,16 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/search/{lastName}")
+    @GetMapping("/search/lastName/{lastName}")
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> getAllUsersByLastName(@PathVariable("lastName") String lastName) {
         return userService.getAllUsersByLastName(lastName);
+    }
+
+    @GetMapping("/search/email/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDto> getAllUsersByEmail(@PathVariable("email") String email) {
+        return userService.getAllUsersByEmail(email);
     }
 
     @GetMapping("/{userId}/appointments")

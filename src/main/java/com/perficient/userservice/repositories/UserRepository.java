@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface UserRepository extends MongoRepository<User, String> {
     List<User> findByLastNameIgnoreCase(String lastName);
+
+    List<User> findByEmailIgnoreCase(String email);
 }
