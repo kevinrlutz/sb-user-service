@@ -78,7 +78,8 @@ class UserControllerTest {
     void updateUser() throws Exception {
         given(userService.updateUser(any(), any())).willReturn(getValidUserDto());
 
-        UserDto userDto = UserDto.builder().build();
+        UserDto userDto = getValidUserDto();
+        userDto.setAge(30);
         String userDtoJson = objectMapper.writeValueAsString(userDto);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/users/" + new ObjectId())

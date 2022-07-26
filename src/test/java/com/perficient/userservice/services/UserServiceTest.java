@@ -150,6 +150,7 @@ class UserServiceTest {
                 .description("Test Appt Description")
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.now())
+                .userId(new ObjectId().toString())
                 .build();
     }
 }

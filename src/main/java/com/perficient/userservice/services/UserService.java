@@ -15,6 +15,8 @@ public interface UserService {
 
     List<UserDto> getAllUsersByLastName(String lastName);
 
+    List<UserDto> getAllUsersByEmail(String email);
+
     List<ApptDto> getUserAppointments(String userId);
 
     ApptDto addAppointment(String userId, ApptDto apptDto);
