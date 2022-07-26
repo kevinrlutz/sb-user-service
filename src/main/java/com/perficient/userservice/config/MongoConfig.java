@@ -40,4 +40,9 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     protected String getDatabaseName() {
         return "users";
     }
+
+    @Override
+    public boolean autoIndexCreation() {
+        return true;
+    }
 }
