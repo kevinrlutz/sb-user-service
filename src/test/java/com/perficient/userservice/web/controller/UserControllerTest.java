@@ -52,6 +52,15 @@ class UserControllerTest {
     }
 
     @Test
+    void getUserById_NotFound() throws Exception {
+
+        given(userService.getUserById(any())).willReturn(null);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users/" + new ObjectId()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void getAllUsersByLastName() throws Exception {
         given(userService.getAllUsersByLastName(any())).willReturn(new ArrayList<>());
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users")
@@ -59,6 +68,13 @@ class UserControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void getAllUsersByEmail() throws Exception {
+        given(userService.getAllUsersByEmail(any())).willReturn(new ArrayList<>());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     @Test
     void createUser() throws Exception {

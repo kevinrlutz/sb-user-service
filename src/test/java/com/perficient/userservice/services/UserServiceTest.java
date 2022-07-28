@@ -6,6 +6,7 @@ import com.perficient.userservice.web.model.UserDto;
 import com.perficient.userservice.repositories.UserRepository;
 import com.perficient.userservice.web.mappers.UserMapper;
 import org.bson.types.ObjectId;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,6 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
+@Disabled // This test is disabled because it populates data in the database. Only enable to test live DB Interactions
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc

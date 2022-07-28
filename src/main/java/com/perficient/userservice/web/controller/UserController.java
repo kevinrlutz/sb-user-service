@@ -20,50 +20,44 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/{userId}")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserDto> getUserById(@PathVariable("userId") String userId) {
-        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
+        UserDto userDto = userService.getUserById(userId);
+        return new ResponseEntity<>(userService.getUserById(userId), userDto == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 
     @GetMapping("/search/lastName/{lastName}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<UserDto> getAllUsersByLastName(@PathVariable("lastName") String lastName) {
-        return userService.getAllUsersByLastName(lastName);
+    public ResponseEntity<List<UserDto>> getAllUsersByLastName(@PathVariable("lastName") String lastName) {
+        return new ResponseEntity<>(userService.getAllUsersByLastName(lastName), HttpStatus.OK);
     }
 
     @GetMapping("/search/email/{email}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<UserDto> getAllUsersByEmail(@PathVariable("email") String email) {
-        return userService.getAllUsersByEmail(email);
+    public ResponseEntity<List<UserDto>> getAllUsersByEmail(@PathVariable("email") String email) {
+        return new ResponseEntity<>(userService.getAllUsersByEmail(email), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/appointments")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ApptDto>> getUserAppointments(@PathVariable("userId") String userId) {
         return new ResponseEntity<>(userService.getUserAppointments(userId), HttpStatus.OK);
     }
 
     @PostMapping("/") // Create a new user
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<UserDto> createUser(@RequestBody @Validated UserDto userDto) {
         return new ResponseEntity<>(userService.saveNewUser(userDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{userId}") // Update an existing user
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity updateUserById(@PathVariable("userId") String userId, @RequestBody @Validated UserDto userDto) {
         return new ResponseEntity<>(userService.updateUser(userId, userDto), HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{userId}") // Delete an existing user
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable("userId") String userId) {
+    public ResponseEntity deleteUser(@PathVariable("userId") String userId) {
         userService.deleteUser(userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
