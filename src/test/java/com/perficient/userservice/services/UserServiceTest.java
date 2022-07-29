@@ -148,7 +148,7 @@ class UserServiceTest {
         return ApptDto.builder()
                 .id(new ObjectId().toString())
                 .apptName("Test Appt")
-                .apptType(ApptTypeEnum.INITIAL)
+                .apptType(ApptTypeEnum.OTHER)
                 .description("Test Appt Description")
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.now())
